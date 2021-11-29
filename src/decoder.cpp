@@ -7,7 +7,7 @@ https://www.learnopencv.com/barcode-and-qr-code-scanner-using-zbar-and-opencv/
 #include <vector>
 #include <zbar.h>
 
-#include <opencv2/core.hpp>
+#include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
