@@ -19,7 +19,8 @@ typedef struct
 {
   string type;
   string data;
-  vector<Point> location;
+  string location;
+  // vector<Point> location;
 } decodedObject;
 
 // Find and decode barcodes and QR codes
@@ -35,7 +36,19 @@ string decode(string imagePath)
   ImageScanner scanner;
 
   // Configure scanner
-  scanner.set_config(ZBAR_QRCODE, ZBAR_CFG_ENABLE, 1);
+  // disable all
+  scanner.set_config(ZBAR_NONE, ZBAR_CFG_ENABLE, 0);
+
+  // enable
+  scanner.set_config(ZBAR_QRCODE , ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_PDF417 , ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_CODE39 , ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_CODE93 , ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_CODE128, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_EAN13, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_EAN8, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_ISBN13, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_ISBN10, ZBAR_CFG_ENABLE, 1);
 
   // Convert image to grayscale
   Mat imGray;
@@ -53,6 +66,20 @@ string decode(string imagePath)
   {
     obj.type = symbol->get_type_name();
     obj.data = symbol->get_data();
+    unsigned int loc_size = symbol->get_location_size();
+    string str = ""; 
+    unsigned int i;
+    for (i = 0; i < loc_size; i++) {
+      str += "{\"x\":";
+      str += to_string(symbol->get_location_x(i));
+      str += ",\"y\":";
+      str += to_string(symbol->get_location_y(i));
+      str += "},";
+		}
+    if(!str.empty()){
+      str.pop_back();
+      obj.location = "["+str+"]";
+    }
     decodedObjects.push_back(obj);
   }
 
@@ -66,7 +93,7 @@ string decode(string imagePath)
   // Construct result string with decoded information
   for (vector<decodedObject>::iterator elem = decodedObjects.begin(); elem != decodedObjects.end(); ++elem)
   {
-    result += "{\"type\": \"" + (*elem).type + "\", \"data\": \"" + (*elem).data + "\"},";
+    result += "{\"type\": \"" + (*elem).type + "\", \"data\": \"" + (*elem).data + "\", \"location\": "+ (*elem).location +"},";
   }
   result.pop_back();
   result += "]}";
