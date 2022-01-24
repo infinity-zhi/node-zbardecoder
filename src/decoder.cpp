@@ -10,6 +10,7 @@ https://www.learnopencv.com/barcode-and-qr-code-scanner-using-zbar-and-opencv/
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+
 #include <opencv2/imgcodecs/imgcodecs.hpp>
 #include <opencv2/core/hal/interface.h>
 
@@ -26,7 +27,7 @@ typedef struct
 } decodedObject;
 
 // Find and decode barcodes and QR codes
-string decode(char* imagePath, int length)
+string decode(char* imagePath, int length, int num)
 {
   // Read image
   // Mat im = imread(imagePath);
@@ -46,7 +47,6 @@ string decode(char* imagePath, int length)
 
   // enable
   scanner.set_config(ZBAR_QRCODE , ZBAR_CFG_ENABLE, 1);
-  scanner.set_config(ZBAR_PDF417 , ZBAR_CFG_ENABLE, 1);
   scanner.set_config(ZBAR_CODE39 , ZBAR_CFG_ENABLE, 1);
   scanner.set_config(ZBAR_CODE93 , ZBAR_CFG_ENABLE, 1);
   scanner.set_config(ZBAR_CODE128, ZBAR_CFG_ENABLE, 1);
@@ -54,6 +54,8 @@ string decode(char* imagePath, int length)
   scanner.set_config(ZBAR_EAN8, ZBAR_CFG_ENABLE, 1);
   scanner.set_config(ZBAR_ISBN13, ZBAR_CFG_ENABLE, 1);
   scanner.set_config(ZBAR_ISBN10, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_UPCA, ZBAR_CFG_ENABLE, 1);
+  scanner.set_config(ZBAR_UPCE, ZBAR_CFG_ENABLE, 1);
 
   // Convert image to grayscale
   Mat imGray;
@@ -65,10 +67,10 @@ string decode(char* imagePath, int length)
   // Scan the image for barcodes and QRCodes
 
   decodedObject obj;
+  if(num !=0) num = 1;
   int scan_times = 0 ;
-  while(scan_times<2 && decodedObjects.empty()){
+  while(scan_times<=num && decodedObjects.empty()){
     // if(scan_times >1 ){
-      
     //   int scale = 0.6;
     //   Mat imScale(imGray.cols*scale,imGray.rows*scale, imGray.type());
     //   resize(imGray,imScale,imGray.size(),0,0, INTER_LINEAR);

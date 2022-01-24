@@ -1,7 +1,7 @@
 #include <napi.h>
 #include <string>
 #include <vector>
-#include <io.h>
+#include <iostream>
 #include "decoder.h"
 
 Napi::String decoder(const Napi::CallbackInfo& info) {
@@ -10,12 +10,13 @@ Napi::String decoder(const Napi::CallbackInfo& info) {
     // if(access((char*)file.data(), 4) == -1){
     //     return Napi::String::New(env, "{\"results\": []}");
     // }
-    if (!info[0].IsBuffer()) {
+    if (!info[0].IsBuffer() || !info[1].IsNumber()) {
         return Napi::String::New(env, "{\"results\": []}");
     }
     Napi::Buffer<char> buffer = info[0].As<Napi::Buffer<char>>();
     char* file = reinterpret_cast<char*>(buffer.Data());
-    std::string result = decode(file,buffer.Length());
+    int num = info[1].ToNumber().Int32Value();
+    std::string result = decode(file,buffer.Length(), num);
     return Napi::String::New(env, result);
 }
 
