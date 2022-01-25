@@ -139,10 +139,7 @@ LDFLAGS_Release := \
 
 LIBS := \
 	/test/node-zbardecoder/linux64/zbar/lib/libzbar.so \
-	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_core.so \
-	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_imgcodecs.so \
-	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_highgui.so \
-	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_imgproc.so
+	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_world.so
 
 $(obj).target/zbardecoder.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/zbardecoder.node: LIBS := $(LIBS)

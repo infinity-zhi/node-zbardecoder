@@ -24,11 +24,8 @@
             #   "-lopencv_imgproc",
             # ],
             "libraries": [
-              "<(module_root_dir)/linux64/zbar/lib/libzbar.so"
-              "<(module_root_dir)/linux64/opencv3/lib64/libopencv_core.so",
-              "<(module_root_dir)/linux64/opencv3/lib64/libopencv_imgcodecs.so",
-              "<(module_root_dir)/linux64/opencv3/lib64/libopencv_highgui.so",
-              "<(module_root_dir)/linux64/opencv3/lib64/libopencv_imgproc.so",
+               "<(module_root_dir)/linux64/zbar/lib/libzbar.so",
+               "<(module_root_dir)/linux64/opencv3/lib64/libopencv_world.so"
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",

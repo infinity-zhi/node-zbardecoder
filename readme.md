@@ -14,6 +14,8 @@ require `opencv3.4.3 + zbar + libiconv`
 
 unzip files in `linux64` folder, then run `npm install`
 
+`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path>/node-zbardecoder/linux64/zbar/lib:<path>/node-zbardecoder/linux64/opencv3/lib64:<path>/node-zbardecoder/linux64/libiconv/lib`
+
 <!-- For linux users:
 
         apt-get install libzbar0 libzbar-dev
