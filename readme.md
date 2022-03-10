@@ -10,11 +10,12 @@ It works with a static image files, supports multiple barcodes in the image and 
 
 ## Installation
 
-require `opencv3.4.3 + zbar + libiconv`
+require `ImageMagick-Q16-6.9.10 + zbar + libiconv`
 
-unzip files in `linux64` folder, then run `npm install`
-
-`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path>/node-zbardecoder/linux64/zbar/lib:<path>/node-zbardecoder/linux64/opencv3/lib64:<path>/node-zbardecoder/linux64/libiconv/lib`
+unzip files in `linux64` folder, 
+`yum install ImageMagick-c++ ImageMagick-c++-devel`
+`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<path>/node-zbardecoder/linux64/zbar/lib:<path>/node-zbardecoder/linux64/libiconv/lib`
+then run `npm install`
 
 <!-- For linux users:
 
@@ -33,7 +34,7 @@ After this install Barcode Reader
 ```js
 const bardecoder = require('node-zbardecoder');
 
-const result = JSON.parse(bardecoder.decode('image.jpg', 0));
+const result = JSON.parse(bardecoder.decode('image.jpg', 1));
 console.log(result);
 
 /*

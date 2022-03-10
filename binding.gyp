@@ -16,41 +16,36 @@
         [
           "OS==\"linux\"",
           {
-            # "libraries": [
-            #   "-lzbar",
-            #   "-lopencv_core",
-            #   "-lopencv_imgcodecs",
-            #   "-lopencv_highgui",
-            #   "-lopencv_imgproc",
-            # ],
             "libraries": [
                "<(module_root_dir)/linux64/zbar/lib/libzbar.so",
-               "<(module_root_dir)/linux64/opencv3/lib64/libopencv_world.so"
+               "-lMagick++-6.Q16",
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
-              "<(module_root_dir)/linux64/opencv3/include",
-              "<(module_root_dir)/linux64/zbar/include"
-            ]
+              "<(module_root_dir)/linux64/zbar/include",
+              "<(module_root_dir)/linux64/Magick++/include",
+            ],
+            # "include_dirs": [
+            #   "<!@(node -p \"require('node-addon-api').include\")"
+            # ]
           }
         ],
         [
           "OS==\"win\"",
           {
             "libraries": [
-              "<(module_root_dir)/win64/opencv3/lib/opencv_world343.lib",
-              "<(module_root_dir)/win64/zbarWin64/lib/libzbar64-0.lib"
+              "<(module_root_dir)/win64/zbarWin64/lib/libzbar64-0.lib",
+              "<(module_root_dir)/win64/Magick++/lib/CORE_RL_Magick++_.lib",
             ],
             "include_dirs": [
               "<!@(node -p \"require('node-addon-api').include\")",
-              "<(module_root_dir)/win64/opencv3/include",
-              "<(module_root_dir)/win64/zbarWin64/include"
+              "<(module_root_dir)/win64/zbarWin64/include",
+              "<(module_root_dir)/win64/Magick++/include",
             ],
             "copies": [
               {
                 "destination": "<(module_root_dir)/build/Release/",
                 "files": [
-                  "<(module_root_dir)/win64/opencv3/bin/opencv_world343.dll",
                   "<(module_root_dir)/win64/zbarWin64/bin/libiconv.dll",
                   "<(module_root_dir)/win64/zbarWin64/bin/libzbar64-0.dll"
                 ]

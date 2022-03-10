@@ -41,16 +41,16 @@ CFLAGS_CC_Debug := \
 	-std=gnu++14
 
 INCS_Debug := \
-	-I/root/.cache/node-gyp/16.13.0/include/node \
-	-I/root/.cache/node-gyp/16.13.0/src \
-	-I/root/.cache/node-gyp/16.13.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/16.13.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/16.13.0/deps/uv/include \
-	-I/root/.cache/node-gyp/16.13.0/deps/zlib \
-	-I/root/.cache/node-gyp/16.13.0/deps/v8/include \
+	-I/root/.cache/node-gyp/16.13.1/include/node \
+	-I/root/.cache/node-gyp/16.13.1/src \
+	-I/root/.cache/node-gyp/16.13.1/deps/openssl/config \
+	-I/root/.cache/node-gyp/16.13.1/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/16.13.1/deps/uv/include \
+	-I/root/.cache/node-gyp/16.13.1/deps/zlib \
+	-I/root/.cache/node-gyp/16.13.1/deps/v8/include \
 	-I/test/node-zbardecoder/node_modules/node-addon-api \
-	-I/test/node-zbardecoder/linux64/opencv3/include \
-	-I/test/node-zbardecoder/linux64/zbar/include
+	-I/test/node-zbardecoder/linux64/zbar/include \
+	-I/test/node-zbardecoder/linux64/Magick++/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=zbardecoder' \
@@ -88,16 +88,16 @@ CFLAGS_CC_Release := \
 	-std=gnu++14
 
 INCS_Release := \
-	-I/root/.cache/node-gyp/16.13.0/include/node \
-	-I/root/.cache/node-gyp/16.13.0/src \
-	-I/root/.cache/node-gyp/16.13.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/16.13.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/16.13.0/deps/uv/include \
-	-I/root/.cache/node-gyp/16.13.0/deps/zlib \
-	-I/root/.cache/node-gyp/16.13.0/deps/v8/include \
+	-I/root/.cache/node-gyp/16.13.1/include/node \
+	-I/root/.cache/node-gyp/16.13.1/src \
+	-I/root/.cache/node-gyp/16.13.1/deps/openssl/config \
+	-I/root/.cache/node-gyp/16.13.1/deps/openssl/openssl/include \
+	-I/root/.cache/node-gyp/16.13.1/deps/uv/include \
+	-I/root/.cache/node-gyp/16.13.1/deps/zlib \
+	-I/root/.cache/node-gyp/16.13.1/deps/v8/include \
 	-I/test/node-zbardecoder/node_modules/node-addon-api \
-	-I/test/node-zbardecoder/linux64/opencv3/include \
-	-I/test/node-zbardecoder/linux64/zbar/include
+	-I/test/node-zbardecoder/linux64/zbar/include \
+	-I/test/node-zbardecoder/linux64/Magick++/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/src/decoder.o \
@@ -139,7 +139,7 @@ LDFLAGS_Release := \
 
 LIBS := \
 	/test/node-zbardecoder/linux64/zbar/lib/libzbar.so \
-	/test/node-zbardecoder/linux64/opencv3/lib64/libopencv_world.so
+	-lMagick++-6.Q16
 
 $(obj).target/zbardecoder.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/zbardecoder.node: LIBS := $(LIBS)
