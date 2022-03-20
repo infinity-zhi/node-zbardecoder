@@ -14,7 +14,7 @@ Napi::String decoder(const Napi::CallbackInfo& info) {
         return Napi::String::New(env, "{\"results\": []}");
     }
     Napi::Buffer<char> buffer = info[0].As<Napi::Buffer<char>>();
-    char* file = reinterpret_cast<char*>(buffer.Data());
+    const char* file = reinterpret_cast<char*>(buffer.Data());
     int num = info[1].ToNumber().Int32Value();
     std::string result = decode(file,buffer.Length(), num);
     return Napi::String::New(env, result);

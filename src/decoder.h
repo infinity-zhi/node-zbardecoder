@@ -1,3 +1,3 @@
 #include <string>
 
-std::string decode(char* file, int length, int num);
+std::string decode(const char* file, int length, int num);

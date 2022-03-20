@@ -37,17 +37,21 @@ std::string escaped(const std::string& input)
 }
 
 // Find and decode barcodes and QR codes
-string decode(char* imagePath, int length, int num)
+string decode(const char* imagePath, int length, int num)
 {
   Magick::InitializeMagick(nullptr);
   Magick::Blob blob(static_cast<const void *>(imagePath), (size_t) length);
   Magick::Image dimage;
+  Magick::Blob zbarBlob;
 
   //try { 
     dimage.depth(8);
     dimage.quiet(true);
     dimage.read(blob);
-    dimage.type(Magick::GrayscaleType);
+    dimage.modifyImage();
+    dimage.write(&zbarBlob, "GRAY", 8);
+
+    // dimage.type(Magick::GrayscaleType);
   // } 
   // catch( Magick::Exception &error_ ) { 
   //   cout << "Caught exception: " << error_.what() << endl; 
@@ -78,10 +82,11 @@ string decode(char* imagePath, int length, int num)
   // Wrap image data in a zbar image
   const unsigned int height = dimage.rows();
   const unsigned int width = dimage.columns();
-  unsigned char *data = new unsigned char[width * height];
-  dimage.write(0, 0, width, height, "I", Magick::CharPixel, data);
+  // unsigned char *data = new unsigned char[width * height];
+  // dimage.write(0, 0, width, height, "I", Magick::CharPixel, data);
   
-  zbar::Image image(width, height, "Y800", data, width * height);
+  const void *raw = zbarBlob.data();
+  zbar::Image image(width, height, "Y800", raw, width * height);
 
   // Scan the image for barcodes and QRCodes
   decodedObject obj;
